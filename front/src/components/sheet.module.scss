@@ -1,0 +1,70 @@
+$resizeSize: 20px;
+$headerHeight: 35px;
+.sheet {
+  user-select: none;
+  border: 1px solid #aaa;
+  cursor: move;
+}
+
+.delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  font-size: 3rem;
+  line-height: 25px;
+  text-align: center;
+  cursor: pointer
+}
+
+.resize {
+  position: absolute;
+  bottom: -($resizeSize / 2) + 3;
+  right: -($resizeSize / 2) + 3;
+  width: $resizeSize;
+  height: $resizeSize;
+  border-radius: 50%;
+  background-color: cornflowerblue;
+  border: 2px solid #fff;
+  overflow: hidden;
+  font-size: 2rem;
+  line-height: 12px;
+  text-align: center;
+  cursor: se-resize;
+}
+
+.changeColor {
+  position: relative;
+  top: 2px;
+  left: 4px;
+  cursor: pointer
+}
+
+.inputColor {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.textarea {
+  text-align: center;
+  vertical-align: middle;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  top: $headerHeight;
+  resize: none;
+  overflow: hidden;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.header {
+  border-bottom: 1px solid #aaa;
+  width: 100%;
+  height: $headerHeight;
+  background-color: lightgrey;
+}
