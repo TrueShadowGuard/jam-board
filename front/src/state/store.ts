@@ -4,7 +4,8 @@ import settings from "../settings";
 class JamBoardStore {
     constructor() {
         makeObservable(this);
-        const socket = new WebSocket('ws://localhost:81');
+        const wsUrl = window.location.origin.replace(/^http/, 'ws');
+        const socket = new WebSocket(wsUrl);
         this.socket = socket;
 
         socket.onopen = e => {
@@ -18,7 +19,7 @@ class JamBoardStore {
     }
 
     @observable
-    sheets: Sheet[] = [new Sheet(null), new Sheet(null), new Sheet(null)];
+    sheets: Sheet[] = [];
 
     socket: WebSocket;
 
@@ -26,39 +27,45 @@ class JamBoardStore {
     moveSheetTo(sheet: Sheet, x: number, y: number) {
         sheet.x = x;
         sheet.y = y;
-        this.sendToServer()
+        this.sendToServer();
     }
 
     @action
     deleteSheet(sheet: Sheet) {
         this.sheets = this.sheets.filter(s => s.id !== sheet.id);
-        this.sendToServer()
+        this.sendToServer();
     }
 
     @action
     createSheet(params: any) {
-        this.sheets.push(new Sheet(params))
-        this.sendToServer()
+        this.sheets.push(new Sheet(params));
+        this.sendToServer();
     }
 
     @action
     raiseSheet(sheet: Sheet) {
         console.log('raise')
         const ind = this.sheets.findIndex(s => s.id === sheet.id);
-        this.sheets.push(this.sheets.splice(ind, 1)[0])
-        this.sendToServer()
+        this.sheets.push(this.sheets.splice(ind, 1)[0]);
+        this.sendToServer();
     }
 
     @action
     resizeSheet(sheet: Sheet, size: number) {
         sheet.size = Math.max(size, settings.minSheetSize);
-        this.sendToServer()
+        this.sendToServer();
     }
 
     @action
-    changeSheetColor(sheet: Sheet, color: string) {
+    setSheetColor(sheet: Sheet, color: string) {
         sheet.color = color;
-        this.sendToServer()
+        this.sendToServer();
+    }
+
+    @action
+    setSheetText(sheet: Sheet, text: string) {
+        sheet.text = text;
+        this.sendToServer();
     }
 
     async sendToServer() {

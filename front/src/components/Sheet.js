@@ -29,12 +29,12 @@ const Sheet = observer(({sheet}) => {
           <input type="color"
                  className={s.inputColor}
                  value={sheet.color}
-                 onChange={(e) => store.changeSheetColor(sheet, e.target.value)}
+                 onChange={(e) => store.setSheetColor(sheet, e.target.value)}
           />
         </label>
       </header>
       <textarea value={sheet.text}
-                onChange={(e) => sheet.text = e.target.value}
+                onInput={(e) => store.setSheetText(sheet, e.target.value)}
                 className={s.textarea}
                 style={{fontSize}}
       />
